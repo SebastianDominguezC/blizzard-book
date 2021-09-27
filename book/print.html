@@ -1,0 +1,1057 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>❄️ Blizzard ❄️</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="roadmap.html"><strong aria-hidden="true">2.</strong> Roadmap</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li class="chapter-item expanded "><a href="server.html"><strong aria-hidden="true">4.</strong> Server Architecture</a></li><li class="chapter-item expanded "><a href="engine.html"><strong aria-hidden="true">5.</strong> Engine Architecture</a></li><li class="chapter-item expanded "><a href="learn.html"><strong aria-hidden="true">6.</strong> Learn</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="learn/world.html"><strong aria-hidden="true">6.1.</strong> World</a></li><li class="chapter-item expanded "><a href="learn/ec.html"><strong aria-hidden="true">6.2.</strong> Entities and Components</a></li><li class="chapter-item expanded "><a href="learn/systems.html"><strong aria-hidden="true">6.3.</strong> Systems</a></li><li class="chapter-item expanded "><a href="learn/game.html"><strong aria-hidden="true">6.4.</strong> Game</a></li><li class="chapter-item expanded "><a href="learn/server.html"><strong aria-hidden="true">6.5.</strong> Server</a></li><li class="chapter-item expanded "><a href="learn/client.html"><strong aria-hidden="true">6.6.</strong> Client</a></li></ol></li><li class="chapter-item expanded "><a href="origin.html"><strong aria-hidden="true">7.</strong> Origin</a></li><li class="chapter-item expanded "><a href="dev_process.html"><strong aria-hidden="true">8.</strong> Development Process</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">❄️ Blizzard ❄️</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="overview"><a class="header" href="#overview">Overview</a></h1>
+<p>The Blizzard proyect is a solution to building multiplayer games in an authorative client-server architecture. This proyect consists of a <a href="./server.html">Server</a> and a <a href="./engine.html">Game Engine</a>.</p>
+<p>The proyect is still in development and very new, it is not a full-featured solution. As of now only the following are covered:</p>
+<ul>
+<li>ECS Game Engine (only data, no rendering)</li>
+<li>TCP authorative server</li>
+<li>Handling connections + disconnections</li>
+<li>Example client</li>
+</ul>
+<p>There are many areas of improvement and for further development. The development roadmap can be seen in the next section!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="roadmap"><a class="header" href="#roadmap">Roadmap</a></h1>
+<p>There are many features missing in the proyect, here are some of the contemplated features for future development.</p>
+<h2 id="server"><a class="header" href="#server">Server</a></h2>
+<ul>
+<li>Cheating prevention</li>
+<li>Optimization</li>
+<li>UDP server (now it's only TCP)</li>
+<li>Better communication protocols</li>
+<li>AI / ML enhancements</li>
+<li>Good logger</li>
+<li>Server metrics</li>
+<li>Game saving (like game recording...)</li>
+<li>Modularity (server customization)</li>
+<li>More examples and docs</li>
+</ul>
+<h2 id="game-engine"><a class="header" href="#game-engine">Game Engine</a></h2>
+<ul>
+<li>Improved ECS</li>
+<li>Math / physics library</li>
+<li>Out-of-the-box components for ECS</li>
+<li>Good logger</li>
+<li>Multi-platform support</li>
+<li>Window abstraction layer</li>
+<li>Renderer API (OpenGL or Vulkan)</li>
+<li>Modularity (engine customization)</li>
+<li>More examples and docs</li>
+</ul>
+<p>See how to get started in the next section!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h1>
+<p>For a quick setup and seeing the game engine and server work together, try copying the example library in the <a href="https://github.com/SebastianDominguezC/blizzard">GitHub repository</a>. It is a library with two binaries, one for the server and one for the client example.</p>
+<p>For now, there is not a quick &quot;default&quot; way to get started, because the Game and World need to be manually configured, so please see the <a href="./learn.html">learn</a> section!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="server-architecture"><a class="header" href="#server-architecture">Server Architecture</a></h1>
+<p>Authorative client-server.</p>
+<p>This page is not yet finished...</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="engine-architecture"><a class="header" href="#engine-architecture">Engine Architecture</a></h1>
+<p>ECS Game Engine.</p>
+<p>This page is not yet finished...</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="learn"><a class="header" href="#learn">Learn</a></h1>
+<p>This is a tutorial to build the Example project in the GitHub repository. This will teach you the fundamentals to create your own TCP multiplayer data games using Blizzard's Game Engine and Server.</p>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<p>Open a new terminal and create a new library crate:</p>
+<pre><code>cargo new my_game --lib
+cd my_game
+</code></pre>
+<p>Inside the <code>src</code> folder, create a <code>bin</code> directory and add two files:</p>
+<p><code>server.rs</code>
+<code>client.rs</code></p>
+<p>Make sure that each file has a <code>main()</code> function!</p>
+<p>This will be all there is to the folder and file structure.</p>
+<p>Inside the root <code>cargo.toml</code> file, add the following dependencies:</p>
+<pre><code>[dependencies]
+serde = &quot;1.0.13&quot;
+serde_json = &quot;1.0&quot;
+serde_derive = &quot;1.0&quot;
+
+blizzard-server = &quot;0.1&quot;
+blizzard-engine = &quot;0.1&quot;
+blizzard-engine_derive = &quot;0.1&quot;
+</code></pre>
+<p>Then install the dependencies / build the proyect in your terminal</p>
+<pre><code>cargo build
+</code></pre>
+<p>Your file structure should look like the following:</p>
+<pre><code>my_game/
+    src/
+        bin/
+            client.rs
+            server.rs
+        lib.rs
+    cargo.toml
+    cargo.lock
+    .gitignore
+    target/
+</code></pre>
+<p>Now let's make a simple multiplayer game where you can move a player's position!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="world"><a class="header" href="#world">World</a></h1>
+<p>The Blizzard Game Engine works with the Entity Component System architecture. The server runs a <code>Game</code>, said game contains a <code>World</code>, which contains all the <code>Entities</code> and <code>Components</code>. The <code>World</code> also runs the <code>Systems</code>, which process all of the <code>Components</code> to run logic and update the game. You can read more about the ECS architecture online.</p>
+<h2 id="import-world"><a class="header" href="#import-world">Import World</a></h2>
+<p>Inside the <code>server.rs</code> file we will write all the game and server logic. At the top of the file add the following:</p>
+<pre><code>extern crate blizzard_engine;
+use blizzard_engine::ecs::{World};
+</code></pre>
+<p>The first two line is for adding the blizzard engine to the binary. The second line is to use the <code>World</code> trait definied for the ECS.</p>
+<h2 id="create-your-world"><a class="header" href="#create-your-world">Create your world</a></h2>
+<p>Create your own world by creating any struct that implements Debug and Clone. Then simply apply the <code>World</code> trait to your World:</p>
+<pre><code>#[derive(Debug, Clone)]
+struct MyWorld {
+}
+
+impl World&lt;Input&gt; for MyWorld {
+    fn new() -&gt; Self {
+        Self {
+
+        }
+    }
+    fn run_systems(&amp;mut self, input: Input) {
+        // runs future systems
+    }
+}
+</code></pre>
+<p>This won't compile yet! The <code>World</code> trait takes a generic type <code>I</code>, used for sending client (player) data to the world! Here we called it <code>Input</code>. You can define input any way you like, it is meant to be flexible to however you like! For now, let's define <code>Input</code> as the following tuple struct:</p>
+<pre><code>#[derive(Debug, Clone, Copy)]
+struct Input(usize);
+</code></pre>
+<p>Next step: Creating <code>Entities</code> and <code>Components</code>!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="entities-and-components"><a class="header" href="#entities-and-components">Entities and Components</a></h1>
+<p>Hopefully by now you have read a little about <code>Entities</code> and <code>Components</code> from the ECS architecture.</p>
+<h2 id="necessary-imports"><a class="header" href="#necessary-imports">Necessary imports</a></h2>
+<p>The Blizzard Engine comes with a default way of creating <code>Entities</code> and <code>Components</code>. Add the following to the top of your <code>server.rs</code> file:</p>
+<pre><code>extern crate blizzard_engine_derive;
+
+use blizzard_engine::ecs::{ComponentRegistry, EntityManager, World};
+use blizzard_engine_derive::ComponentRegistry;
+
+use std::collections::HashMap;
+</code></pre>
+<p>The top of your file should now look something like the following:</p>
+<pre><code>extern crate blizzard_engine;
+extern crate blizzard_engine_derive;
+
+use blizzard_engine::ecs::{ComponentRegistry, EntityManager, World};
+use blizzard_engine_derive::ComponentRegistry;
+
+use std::collections::HashMap;
+</code></pre>
+<h2 id="add-entities-to-your-world"><a class="header" href="#add-entities-to-your-world">Add Entities to your world</a></h2>
+<p>Adding entities to the world is very simple:</p>
+<pre><code>#[derive(Debug, Clone)]
+struct MyWorld {
+    entity_manager: EntityManager,
+}
+
+impl World&lt;Input&gt; for MyWorld {
+    fn new() -&gt; Self {
+        Self {
+            entity_manager: EntityManager::new(),
+        }
+    }
+    fn run_systems(&amp;mut self, input: Input) {
+        // runs future systems
+    }
+}
+</code></pre>
+<p>See the <code>ecs</code> part of the Blizzard Game Engine docs to see all the methods available for adding and managing entities.</p>
+<p>Let's add components to our <code>World</code>.</p>
+<h2 id="adding-components"><a class="header" href="#adding-components">Adding Components</a></h2>
+<p>Adding components is very easy, that's what the <code>engine_derive</code> library is for, it provides a macro to generate components easily! Let's create two types of components, a <code>Player</code> and a <code>Position</code>:</p>
+<pre><code>#[derive(ComponentRegistry, Debug, Clone)]
+struct PositionRegistry {
+    components: HashMap&lt;u32, Position&gt;,
+}
+
+#[derive(ComponentRegistry, Debug, Clone)]
+struct PlayerRegistry {
+    components: HashMap&lt;u32, usize&gt;,
+}
+</code></pre>
+<p>Our components are stored in a registry, hence the struct names end with &quot;Registry&quot;. Components are stored inside a HashMap, the first key MUST be of type u32, since that is the UID that is associated to an <code>Entity</code> when a <code>Component</code> is created. The second key of the HashMap is of any type that is needed. This won't compile yet because <code>Position</code> is not defined. Let's define it:</p>
+<pre><code>use std::ops::AddAssign;
+
+#[derive(Debug, Clone, Copy)]
+pub struct Position {
+    x: i32,
+    y: i32,
+}
+
+impl Position {
+    pub fn new() -&gt; Self {
+        Self { x: 0, y: 0 }
+    }
+    pub fn displacement(x: i32, y: i32) -&gt; Self {
+        Self { x, y }
+    }
+}
+
+impl AddAssign for Position {
+    fn add_assign(&amp;mut self, other: Self) {
+        *self = Self {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        };
+    }
+}
+</code></pre>
+<p>Now the only thing left to do is add the component registries to the <code>World</code>:</p>
+<pre><code>#[derive(Debug, Clone)]
+struct MyWorld {
+    entity_manager: EntityManager,
+    positions: PositionRegistry,
+    players: PlayerRegistry,
+}
+</code></pre>
+<p>Great! Let's now learn how to add <code>Systems</code> in order to manipulate components.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="systems"><a class="header" href="#systems">Systems</a></h1>
+<p><code>Systems</code> are a way of changing <code>Components</code>. Systems are very broad in this implementation, and can be pretty much defined any way you like. For this example, let's add a simple counter <code>Component</code> and a <code>System</code> that increments this counter.</p>
+<pre><code>#[derive(Debug, Clone)]
+struct MyWorld {
+    entity_manager: EntityManager,
+    positions: PositionRegistry,
+    counters: CounterRegistry,
+    players: PlayerRegistry,
+}
+
+...
+
+#[derive(ComponentRegistry, Debug, Clone)]
+struct CounterRegistry {
+    components: HashMap&lt;u32, u32&gt;,
+}
+</code></pre>
+<h2 id="creating-a-system"><a class="header" href="#creating-a-system">Creating a System</a></h2>
+<p>Systems have must process a specific <code>Component</code>, hence their function signature must match the component:</p>
+<pre><code>fn counter_system(counters: &amp;mut HashMap&lt;u32, u32&gt;) {
+    for (_, c) in counters.iter_mut() {
+        *c += 1;
+    }
+}
+</code></pre>
+<p>This system will iterate all the counters inside the CounterRegistry and increment their value by one.</p>
+<p>This system will not run if it is not added to the <code>World</code>...</p>
+<h2 id="adding-systems-to-the-world"><a class="header" href="#adding-systems-to-the-world">Adding Systems to the world</a></h2>
+<p>Addidng a <code>System</code> is very easy, you just call the <code>System</code> inside the <code>World</code>'s <code>run_systems</code> function:</p>
+<pre><code>fn run_systems(&amp;mut self, input: Input) {
+        // Systems to always run
+        counter_system(&amp;mut self.counters.components);
+    }
+</code></pre>
+<p>The next step is to use the <code>Game</code> trait to create your own game, which will be run on the server!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="game"><a class="header" href="#game">Game</a></h1>
+<p>The <code>Game</code> is in charge of setting up the <code>World</code>'s initial state, defining how to update the <code>World</code>, define global resources / state, setting up the input, and defining when the game should end.</p>
+<p>To create your own <code>Game</code>, it must be imported from the engine:</p>
+<pre><code>use blizzard_engine::game::Game;
+</code></pre>
+<h2 id="creating-a-game"><a class="header" href="#creating-a-game">Creating a Game</a></h2>
+<p><code>Game</code> is a trait. You can define your own game struct and implement this trait and also Clone:</p>
+<pre><code>#[derive(Clone)]
+struct MyGame {
+    world: MyWorld,
+    counter: i32,
+}
+
+impl Game&lt;SharedState, Input&gt; for MyGame {
+    fn world_config(&amp;mut self) {
+
+    }
+
+    fn update(&amp;mut self, input: Input, shared_state: Arc&lt;Mutex&lt;SharedState&gt;&gt;) {
+
+    }
+
+    fn reset_input(&amp;mut self, input: Arc&lt;Mutex&lt;Input&gt;&gt;) {
+    }
+
+    fn render(&amp;mut self) {}
+
+    fn end_game(&amp;self) -&gt; bool {
+        false
+    }
+}
+</code></pre>
+<p>The struct <code>MyGame</code> has the world. We also defined another property called counter, just to show that you can create and customize your game however you wish.</p>
+<p>The <code>Game</code> trait has two generic types, the first is <code>K</code>. <code>K</code> is used for sharing information with the client, it is a way to define which data is sent off to the client. For now, we defined the generic <code>K</code> as a struct called <code>SharedState</code>. We will talk about the shared state later. For now, let's define it as an emtpy struct:</p>
+<pre><code>#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct SharedState {
+}
+
+impl SharedState {
+    pub fn new() -&gt; Self {
+        Self {
+        }
+    }
+}
+</code></pre>
+<p>The shared state must implement these traits, hence we need to add <code>Serde</code> to our proyect in order to serialize/deserialize the data sent. At the top of the file add the following:</p>
+<pre><code>#[macro_use]
+extern crate serde_derive;
+extern crate serde;
+extern crate serde_json;
+</code></pre>
+<p>The second generic type is <code>I</code> which was used before, we defined it as the <code>Input</code> tuple struct.</p>
+<p>If the function signatures are confusing, here is the generic definition:</p>
+<pre><code>pub trait Game&lt;K, I&gt; {
+    fn world_config(&amp;mut self);
+    fn update(&amp;mut self, input: I, shared_state: Arc&lt;Mutex&lt;K&gt;&gt;);
+    fn reset_input(&amp;mut self, input: Arc&lt;Mutex&lt;I&gt;&gt;);
+    fn render(&amp;mut self);
+    fn end_game(&amp;self) -&gt; bool;
+}
+</code></pre>
+<p>Let's talk about each function and implement it in our game.</p>
+<h2 id="world-configuration"><a class="header" href="#world-configuration">World Configuration</a></h2>
+<p>The world configuration function is the first function to be called when starting the game. It is useful to define initial states, entities and components. This function is only called once, at the beginning of the <code>Game</code> lifecycle.</p>
+<p>Let's define a basic initial entity with a counter component:</p>
+<pre><code>fn world_config(&amp;mut self) {
+    // Create counter entity
+    let entities = self.world.entity_manager.create_n_entities(1);
+
+    // Add components to many entities
+    self.world.counters.add_many(&amp;entities, 0);
+}
+</code></pre>
+<h2 id="updating-the-world"><a class="header" href="#updating-the-world">Updating the world</a></h2>
+<p>After the world configuration is run, the game loop is started. The update function is the first function that is called in the game loop. It takes an argument of the input, however we are not using it now.</p>
+<pre><code>fn update(&amp;mut self, input: Input, shared_state: Arc&lt;Mutex&lt;SharedState&gt;&gt;) {
+    // Update components
+    self.world.run_systems(input);
+    self.counter += 1;
+}
+</code></pre>
+<p>This function should be used to tell the <code>World</code> to run it's systems.</p>
+<h2 id="reseting-user-input"><a class="header" href="#reseting-user-input">Reseting user input</a></h2>
+<p>After the update function is called, the reset_input function is called. For now we can leave it empty, but it is just a way to define how the input for the next loop should look like if no client input is detected.</p>
+<pre><code>fn reset_input(&amp;mut self, input: Arc&lt;Mutex&lt;Input&gt;&gt;) {
+}
+</code></pre>
+<h2 id="render"><a class="header" href="#render">Render</a></h2>
+<p>This function is called after updating and reseting the user input. It is meant to be called for rendering the game, however the engine does not have a Renderer API yet, so it is pretty much useless:</p>
+<pre><code>fn render(&amp;mut self) {}
+</code></pre>
+<h2 id="ending-the-game"><a class="header" href="#ending-the-game">Ending the game</a></h2>
+<p>This function determines wheter the game should end or not. Here logic can be inserted to end the game. However, we will create an endless game:</p>
+<pre><code>fn end_game(&amp;self) -&gt; bool {
+    false
+}
+</code></pre>
+<h2 id="game-creator-helper-function"><a class="header" href="#game-creator-helper-function">Game creator helper function</a></h2>
+<p>It is recommended to make a game creator helper function:</p>
+<pre><code>fn new_game(world: MyWorld) -&gt; MyGame {
+    MyGame {
+        counter: 0,
+        world: world,
+    }
+}
+</code></pre>
+<p>Perfect, we are almost ready to deploy our server, let's learn how to add start a server with this game!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="tcp-server"><a class="header" href="#tcp-server">TCP Server</a></h1>
+<p>For now, only TCP servers can be created. To make a server we need to add the following to the top of our <code>server.rs</code> file:</p>
+<pre><code>use blizzard_server::server::Server;
+use std::sync::mpsc::Receiver;
+use std::sync::{Arc, Mutex};
+</code></pre>
+<p>The top should now look like this:</p>
+<pre><code>extern crate blizzard_engine;
+extern crate blizzard_engine_derive;
+
+use blizzard_engine::ecs::{ComponentRegistry, EntityManager, World};
+use blizzard_engine::game::Game;
+use blizzard_engine_derive::ComponentRegistry;
+use blizzard_server::server::Server;
+
+use std::collections::HashMap;
+use std::sync::mpsc::Receiver;
+use std::sync::{Arc, Mutex};
+use std::ops::AddAssign;
+</code></pre>
+<h2 id="make-the-server"><a class="header" href="#make-the-server">Make the server</a></h2>
+<p>In the file's <code>main</code> function (or create the function), we will configure our server. We need to define:</p>
+<ul>
+<li>Port: a port where our server will listen to incoming connections</li>
+<li>Max games</li>
+<li>Max players per game</li>
+<li>The game</li>
+<li>Shared state (to send to client)</li>
+<li>Client input type</li>
+<li>Rate at which data is sent to client (FPS or HZ)</li>
+<li>Rate at which the game updates (FPS or HZ)</li>
+<li>How to handle client input</li>
+</ul>
+<p>The server's <code>new</code> function has the following signature:</p>
+<pre><code>pub fn new&lt;T: Game&lt;K, I&gt;, K, I, M&gt;(
+    port: i32,
+    max_games: i32,
+    max_players: i32,
+    game: T,
+    shared_state: K,
+    input: I,
+    handle_input: &amp;'static (dyn Fn(Receiver&lt;(M, usize)&gt;, Arc&lt;Mutex&lt;I&gt;&gt;) -&gt; I + Sync),
+    send_data_rate: i32,
+    game_update_rate: i32,
+)  ...
+</code></pre>
+<p>The new type is <code>M</code>, which is a type used for the <code>Message</code>s sent from client to the game.</p>
+<p>Let's create our basic configuration:</p>
+<pre><code>fn main() {
+    let port = 8888;
+    let max_games = 4;
+    let max_players = 2;
+    let world = MyWorld::new();
+    let shared_state = SharedState::new();
+    let game = new_game(world);
+
+    // The data that a client message will manipulate
+    let input_type = Input::default();
+    let hanlde_input = &amp;handle_client_message;
+
+    // Engine speeds
+    let send_data_from_server_rate = 1;
+    let server_game_update_rate = 2; // 2 times per second
+
+    // Start server + games
+    Server::new(
+        port,
+        max_games,
+        max_players,
+        game,
+        shared_state,
+        input_type,
+        hanlde_input,
+        send_data_from_server_rate,
+        server_game_update_rate,
+    );
+}
+
+</code></pre>
+<p>We have a couple of missing definitions, let's create them.</p>
+<p>Input:</p>
+<pre><code>#[derive(Debug, Clone, Copy)]
+struct Input(Message, usize);
+
+impl Input {
+    fn default() -&gt; Self {
+        Self(Message::None, 0)
+    }
+    fn from(m: Message, id: usize) -&gt; Self {
+        Self(m, id)
+    }
+}
+</code></pre>
+<p>We are changing the input to contain a <code>Message</code>, and a number of type <code>usize</code>. This second one is for identification, it will be passed by the client to identify the player generating the <code>Input</code>.</p>
+<p>Message:</p>
+<pre><code>#[derive(Serialize, Deserialize, Clone, Copy, Debug)]
+pub enum Message {
+    None,
+    W,
+    A,
+    S,
+    D,
+    AddPlayer,
+    RemovePlayer,
+}
+</code></pre>
+<p>SharedState:</p>
+<pre><code>#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct SharedState {
+    pub counters: Vec&lt;u32&gt;,
+    pub registry: Vec&lt;Position&gt;,
+}
+
+impl SharedState {
+    pub fn new() -&gt; Self {
+        Self {
+            registry: vec![],
+            counters: vec![],
+        }
+    }
+}
+</code></pre>
+<p>The shared state will be to show the counters and the positions of players.</p>
+<p>Handle client message:</p>
+<pre><code>fn handle_client_message(receiver: Receiver&lt;(Message, usize)&gt;, input: Arc&lt;Mutex&lt;Input&gt;&gt;) -&gt; Input {
+    for (message, id) in receiver {
+        println!(&quot;Player {} called {:?}&quot;, id, message);
+        *input.lock().unwrap() = Input::from(message, id);
+    }
+    Input::default()
+}
+</code></pre>
+<p>This is an interesting code bit. To handle a client message, when creating the server, an <code>Application</code> is created which wraps the <code>Game</code>, and is in charge for calling the game loop and also connecting all inputs and communications. Hence this function is to handle inputs. It actually handles messages. A <code>Message</code> will be sent from the client. The <code>Receiver</code> will receive the <code>Message</code> and decide what <code>Input</code> to generate based on the message. For now, we are just passing the message on to the <code>Input</code> which will be used in the update_systems function inside the <code>World</code>. The <code>Input</code> is wrapped in a Arc and Mutex.</p>
+<h2 id="adding-game-logic"><a class="header" href="#adding-game-logic">Adding game logic</a></h2>
+<p>Let's make some systems that will be used.</p>
+<p>Adding a player entity, with a player component and position:</p>
+<pre><code>fn add_player_system(world: &amp;mut MyWorld, player_id: usize) {
+    let ent = world.entity_manager.create_entity();
+    world.players.add(ent, player_id);
+    world.positions.add(ent, Position::new());
+    world.player_id_map.players.insert(player_id, ent);
+}
+</code></pre>
+<p>When a player joins a game, they get a UID defined by the server. However, the <code>World</code> has no way to know which entity belongs to a player. Hence we created the <code>PlayerIdMap</code>:</p>
+<pre><code>#[derive(Debug, Clone)]
+struct MyWorld {
+    entity_manager: EntityManager,
+    positions: PositionRegistry,
+    counters: CounterRegistry,
+    players: PlayerRegistry,
+    player_id_map: PlayerIdMap,
+}
+
+impl World&lt;Input&gt; for MyWorld {
+    fn new() -&gt; Self {
+        Self {
+            entity_manager: EntityManager::new(),
+            positions: PositionRegistry::new(),
+            counters: CounterRegistry::new(),
+            players: PlayerRegistry::new(),
+            player_id_map: PlayerIdMap::new(),
+        }
+    }
+    fn run_systems(&amp;mut self, input: Input) {
+        ...
+    }
+}
+
+#[derive(Debug, Clone)]
+struct PlayerIdMap {
+    players: HashMap&lt;usize, u32&gt;,
+}
+impl PlayerIdMap {
+    fn new() -&gt; Self {
+        Self {
+            players: HashMap::new(),
+        }
+    }
+}
+</code></pre>
+<p>Updating player position system:</p>
+<pre><code>fn update_player_pos_system(world: &amp;mut MyWorld, player_id: usize, displacement: Position) {
+    if let Some(ent) = world.player_id_map.players.get(&amp;player_id) {
+        *world
+            .positions
+            .components
+            .entry(*ent)
+            .or_insert(displacement) += displacement;
+    }
+}
+</code></pre>
+<p>Removing a player system:</p>
+<pre><code>fn remove_player_system(world: &amp;mut MyWorld, player_id: usize) {
+    if let Some(ent) = world.player_id_map.players.get(&amp;player_id) {
+        world.players.components.remove(ent);
+        world.positions.components.remove(ent);
+        world.entity_manager.remove_entity(*ent);
+        world.player_id_map.players.remove(&amp;player_id);
+    }
+}
+</code></pre>
+<h2 id="updating-games-using-run_systems-and-input"><a class="header" href="#updating-games-using-run_systems-and-input">Updating games using run_systems and input</a></h2>
+<p>We can now do a lot of basic functionality using this. Let's add our systems to our run_systems:</p>
+<pre><code>fn run_systems(&amp;mut self, input: Input) {
+        // Systems to run conditionally
+        match input.0 {
+            Message::AddPlayer =&gt; add_player_system(self, input.1),
+            Message::W =&gt; {
+                update_player_pos_system(self, input.1, Position::displacement(0, 1));
+            }
+            Message::A =&gt; {
+                update_player_pos_system(self, input.1, Position::displacement(-1, 0));
+            }
+            Message::S =&gt; {
+                update_player_pos_system(self, input.1, Position::displacement(0, -1));
+            }
+            Message::D =&gt; {
+                update_player_pos_system(self, input.1, Position::displacement(1, 0));
+            }
+            Message::RemovePlayer =&gt; {
+                remove_player_system(self, input.1);
+            }
+            _ =&gt; {}
+        }
+        // Systems to always run
+        counter_system(&amp;mut self.counters.components);
+    }
+</code></pre>
+<h2 id="defining-the-data-to-be-sent-to-the-client"><a class="header" href="#defining-the-data-to-be-sent-to-the-client">Defining the data to be sent to the client</a></h2>
+<p>Inside the <code>Game</code>'s update function, we can now copy the desired data over to the <code>SharedState</code>, which is sent off to the client:</p>
+<pre><code>fn update(&amp;mut self, input: Input, shared_state: Arc&lt;Mutex&lt;SharedState&gt;&gt;) {
+        // Update states
+        self.world.run_systems(input);
+        self.counter += 1;
+
+        // Update shared state: for client reception
+        shared_state.lock().unwrap().counters = self
+            .world
+            .counters
+            .components
+            .iter()
+            .map(|(_, counter)| *counter)
+            .collect();
+
+        shared_state.lock().unwrap().registry = self
+            .world
+            .positions
+            .components
+            .iter()
+            .map(|(_, positions)| *positions)
+            .collect();
+}
+</code></pre>
+<p>Here we are just copying the data from the counter and position components into vectors of information.</p>
+<h2 id="next-steps"><a class="header" href="#next-steps">Next steps</a></h2>
+<p>This is everything! You have created your own multiplayer game server! You can start the server in your terminal by typing:</p>
+<pre><code>cargo run --bin server
+</code></pre>
+<p>You will see a couple of logs from the server. However nothing exciting really happens. This is because there are no players connecting to any games! Let's now write a client that connects to a game. We will be writing the client inside the <code>client.rs</code> file. However, now we will use the library we created, <code>my_game</code>. The library is a suggestion, because many of the client's data structs are the same as the game's. For example:</p>
+<ul>
+<li><code>Message</code></li>
+<li><code>SharedState</code></li>
+<li><code>Position</code></li>
+</ul>
+<p>Let's write a client that connects to our server.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="client"><a class="header" href="#client">Client</a></h1>
+<p>The client will be a terminal based client.</p>
+<p>We will move the following on to our <code>my_game</code> library:</p>
+<ul>
+<li><code>Message</code></li>
+<li><code>SharedState</code></li>
+<li><code>Position</code></li>
+</ul>
+<h2 id="mygame-library"><a class="header" href="#mygame-library">MyGame library</a></h2>
+<p>Inside the lib.rs file:</p>
+<pre><code>#[macro_use]
+extern crate serde_derive;
+extern crate serde;
+extern crate serde_json;
+
+use std::ops::AddAssign;
+
+// Message definition
+#[derive(Serialize, Deserialize, Clone, Copy, Debug)]
+pub enum Message {
+    None,
+    W,
+    A,
+    S,
+    D,
+    AddPlayer,
+    RemovePlayer,
+}
+
+// Shared state definition
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct SharedState {
+    pub counters: Vec&lt;u32&gt;,
+    pub registry: Vec&lt;Position&gt;,
+}
+
+impl SharedState {
+    pub fn new() -&gt; Self {
+        Self {
+            registry: vec![],
+            counters: vec![],
+        }
+    }
+}
+
+// Position component
+#[derive(Serialize, Deserialize, Debug, Clone, Copy)]
+pub struct Position {
+    x: i32,
+    y: i32,
+}
+
+impl Position {
+    pub fn new() -&gt; Self {
+        Self { x: 0, y: 0 }
+    }
+    pub fn displacement(x: i32, y: i32) -&gt; Self {
+        Self { x, y }
+    }
+}
+
+impl AddAssign for Position {
+    fn add_assign(&amp;mut self, other: Self) {
+        *self = Self {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        };
+    }
+}
+</code></pre>
+<p>Let's update our <code>server.rs</code> by importing these definitions and removing the old ones that were in the file. Inside: <code>server.rs</code>:</p>
+<pre><code>extern crate my_game;
+use example::{Message, Position, SharedState};
+</code></pre>
+<p>The beggining of your <code>server.rs</code> file should now look like the following:</p>
+<pre><code>extern crate blizzard_engine;
+extern crate blizzard_engine_derive;
+extern crate my_game;
+
+use blizzard_engine::ecs::{ComponentRegistry, EntityManager, World};
+use blizzard_engine::game::Game;
+use blizzard_engine_derive::ComponentRegistry;
+use blizzard_server::server::Server;
+
+use std::collections::HashMap;
+use std::sync::mpsc::Receiver;
+use std::sync::{Arc, Mutex};
+
+use example::{Message, Position, SharedState};
+</code></pre>
+<h2 id="creating-our-client"><a class="header" href="#creating-our-client">Creating our client</a></h2>
+<p>Now we are ready to make our client!</p>
+<p>In the beggining of the file write the following:</p>
+<pre><code>extern crate example;
+
+use example::Message;
+use example::SharedState;
+
+use std::io::{self, BufRead, BufReader, Write};
+use std::net::{Shutdown, TcpStream};
+use std::str;
+use std::sync::{Arc, Mutex};
+use std::thread;
+
+struct Client {}
+</code></pre>
+<p>Our <code>Client</code> struct will be used to define related functionality.</p>
+<p>The way the server works is the following:</p>
+<ul>
+<li>Server is started listening to a TCP port</li>
+<li>Server creates threads based on how many games were specified</li>
+<li>Server opens different TCP listeners (on different ports) per game</li>
+</ul>
+<p>When a client connects to the server, the following happens:</p>
+<ol>
+<li>Server looks for an available game (based of player capacity)</li>
+<li>If it finds a game, it returns the TCP port of said game</li>
+<li>In none are found, the port returned is 0</li>
+</ol>
+<p>Based on this we can create a basic client that tries to connect to the server and receive a port number.</p>
+<pre><code>impl Client {
+    fn start() {
+        let mut stream = TcpStream::connect(&quot;0.0.0.0:8888&quot;).expect(&quot;Could not connect to server&quot;);
+        let port: i32;
+
+        let mut input = String::new();
+        let mut buffer: Vec&lt;u8&gt; = Vec::new();
+
+        println!(&quot;Enter your username: &quot;);
+
+        io::stdin()
+            .read_line(&amp;mut input)
+            .expect(&quot;Failed to read from stdin&quot;);
+
+        println!(&quot;Finding an available lobby...&quot;);
+
+        stream
+            .write(input.as_bytes())
+            .expect(&quot;Failed to write to server&quot;);
+
+        let mut reader = BufReader::new(&amp;stream);
+
+        reader
+            .read_until(b'\n', &amp;mut buffer)
+            .expect(&quot;Could not read into buffer&quot;);
+
+        port = str::from_utf8(&amp;buffer)
+            .expect(&quot;Could not write buffer as string&quot;)
+            .replace(&quot;\n&quot;, &quot;&quot;)
+            .parse()
+            .expect(&quot;Could not parse port&quot;);
+
+        if port == 0 {
+            println!(&quot;No game available, please try again later&quot;);
+            return;
+        }
+
+        stream
+            .shutdown(Shutdown::Both)
+            .expect(&quot;Could not disconnect from original server&quot;);
+
+        let tcp = format!(&quot;0.0.0.0:{}&quot;, port);
+
+        Client::run_game(tcp);
+    }
+}
+</code></pre>
+<p>The server needs to receive an input in order to acknowledge that a player wants to connect, hence we are defining a <code>username</code>, but it will actually never be read. If no game is found, a port of 0 will be returned. We can check this to see if the client should continue to try and connect. At the end, <code>Client::run_game(tcp)</code> starts the game connection. Let's see how we can define such game.</p>
+<h2 id="implementing-player-control"><a class="header" href="#implementing-player-control">Implementing player control</a></h2>
+<pre><code>fn run_game(tcp: String) {
+    // Try to connect to game
+    let mut stream = TcpStream::connect(tcp).expect(&quot;Could not connect to server&quot;);
+    let stream_clone = stream.try_clone().unwrap();
+
+    // Tell the server to add a player
+    let data = Message::AddPlayer;
+    let json = serde_json::to_string(&amp;data).unwrap() + &quot;\n&quot;;
+
+    let should_close = Arc::new(Mutex::new(false));
+    let should_close_copy = Arc::clone(&amp;should_close);
+
+    // Write add player message
+    stream
+        .write(json.as_bytes())
+        .expect(&quot;Failed to write to server&quot;);
+    println!(&quot;data written&quot;);
+
+    // User Input thread
+    thread::spawn(move || {
+        let shoud_close = should_close_copy;
+
+        loop {
+            let mut input = String::new();
+
+            io::stdin()
+                .read_line(&amp;mut input)
+                .expect(&quot;Failed to read from stdin&quot;);
+
+            let input = input.trim();
+
+            let mut data = Message::None;
+
+            // Player controls
+            if input == &quot;w&quot; {
+                data = Message::W;
+            } else if input == &quot;a&quot; {
+                data = Message::A;
+            } else if input == &quot;s&quot; {
+                data = Message::S;
+            } else if input == &quot;d&quot; {
+                data = Message::D;
+            } else if input == &quot;close&quot; {
+                data = Message::RemovePlayer;
+                *shoud_close.lock().unwrap() = true;
+            }
+
+            let json = serde_json::to_string(&amp;data).unwrap() + &quot;\n&quot;;
+
+            stream
+                .write(json.as_bytes())
+                .expect(&quot;Failed to write to server&quot;);
+        }
+    });
+
+    // Stream Reader thread
+    thread::spawn(move || {
+        let stream = stream_clone;
+        loop {
+            let mut buffer: Vec&lt;u8&gt; = Vec::new();
+            let mut reader = BufReader::new(&amp;stream);
+            reader
+                .read_until(b'\n', &amp;mut buffer)
+                .expect(&quot;Could not read into buffer&quot;);
+            let json = str::from_utf8(&amp;buffer).unwrap();
+            let state: SharedState = serde_json::from_str(&amp;json).unwrap();
+
+            // Print shared state!
+            println!(&quot;{:?}&quot;, state);
+        }
+    });
+
+    // Keep thread alive, so TCP connection on other threads doesn't reset
+    loop {
+        if *should_close.lock().unwrap() {
+            return;
+        }
+    }
+}
+</code></pre>
+<h2 id="running-everything-togehter"><a class="header" href="#running-everything-togehter">Running everything togehter</a></h2>
+<p>In a terminal, start the server:</p>
+<pre><code>cargo run --bin server
+</code></pre>
+<p>In a new terminal, start a client:</p>
+<pre><code>cargo run --bin client
+</code></pre>
+<p>You should input your username, and the game will connect. You should then see positions logged to the console. Try writing to the server &quot;w&quot;, &quot;a&quot;, &quot;s&quot;, &quot;d&quot;, or &quot;close&quot;. What happens?</p>
+<p>Now without closing the current client, open y a 3rd terminal and connect another player!</p>
+<p>What happens if you connect a 4th player? What happens if you keep going until all games are full? Find out!</p>
+<h2 id="github-repo"><a class="header" href="#github-repo">GitHub repo</a></h2>
+<p>All of this code is the same code from the Example library in the official GitHub repository. You can check it out if anything is not working properly.</p>
+<h2 id="congratulations"><a class="header" href="#congratulations">Congratulations!</a></h2>
+<p>You just made your own very basic multiplayer game! Many other languages and frameworks have TCP connections. For example <code>C#</code> has a TCP class. You could connect your server to a <code>Unity</code> game! The possibilities are endless.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="origin"><a class="header" href="#origin">Origin</a></h1>
+<p>This proyect started as my curiosity to develop a multiplayer game. I ended up deciding to write my own game server using Rust. After some succesfull connections and data passing between threads, I realised that the server needed a game engine in order to implement an authorative client-server achitecture. This gave birth to the Blizzard Game Engine and Server Engine! If you are curious about my learning process and development process, please see the <a href="./dev_process.html">development process section</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="development-process"><a class="header" href="#development-process">Development Process</a></h1>
+<p>As we were developing Alien Slayer, I thought about how to turn the game into a multiplayer event (it isn't part of the development plan, I was just curious). After some researching, I decided to make my own TCP multiplayer server using Rust. I called this project Blizzard. It consists of two parts: Blizzard Server and Blizzard Game Engine.</p>
+<p>I first started to make the server. It handles client connections, data sending and player input, as well as running the games. After some successful connections and data sending, I realized the server needed some sort of game engine to run the game in a separate thread. I decided to make my own game engine, also with Rust. Hence Blizzard Game Engine came to be, made with ECS architecture. It is only a &quot;data-only&quot; engine, but in the future I hope to give it features like windowing, multi-platform, and rendering.</p>
+<p>After I was able to make a basic game, I decided to abstract the entire server and engine for others to use it! I ended up with this amazing library (it actually consists of 4 different crates).</p>
+<p>Here are some things I had to learn and implement:</p>
+<ul>
+<li>Threads</li>
+<li>Networking (TCP, UDP, Serialization)</li>
+<li>ECS architecture</li>
+<li>Abstraction: Generics, traits, trait objects, macros</li>
+<li>Safe data: Atomic Reference Counters, Mutual Exclusion, Thread Messages</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+    </body>
+</html>

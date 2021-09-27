@@ -1,0 +1,439 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Client - ❄️ Blizzard ❄️</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../roadmap.html"><strong aria-hidden="true">2.</strong> Roadmap</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li class="chapter-item expanded "><a href="../server.html"><strong aria-hidden="true">4.</strong> Server Architecture</a></li><li class="chapter-item expanded "><a href="../engine.html"><strong aria-hidden="true">5.</strong> Engine Architecture</a></li><li class="chapter-item expanded "><a href="../learn.html"><strong aria-hidden="true">6.</strong> Learn</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/world.html"><strong aria-hidden="true">6.1.</strong> World</a></li><li class="chapter-item expanded "><a href="../learn/ec.html"><strong aria-hidden="true">6.2.</strong> Entities and Components</a></li><li class="chapter-item expanded "><a href="../learn/systems.html"><strong aria-hidden="true">6.3.</strong> Systems</a></li><li class="chapter-item expanded "><a href="../learn/game.html"><strong aria-hidden="true">6.4.</strong> Game</a></li><li class="chapter-item expanded "><a href="../learn/server.html"><strong aria-hidden="true">6.5.</strong> Server</a></li><li class="chapter-item expanded "><a href="../learn/client.html" class="active"><strong aria-hidden="true">6.6.</strong> Client</a></li></ol></li><li class="chapter-item expanded "><a href="../origin.html"><strong aria-hidden="true">7.</strong> Origin</a></li><li class="chapter-item expanded "><a href="../dev_process.html"><strong aria-hidden="true">8.</strong> Development Process</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">❄️ Blizzard ❄️</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="client"><a class="header" href="#client">Client</a></h1>
+<p>The client will be a terminal based client.</p>
+<p>We will move the following on to our <code>my_game</code> library:</p>
+<ul>
+<li><code>Message</code></li>
+<li><code>SharedState</code></li>
+<li><code>Position</code></li>
+</ul>
+<h2 id="mygame-library"><a class="header" href="#mygame-library">MyGame library</a></h2>
+<p>Inside the lib.rs file:</p>
+<pre><code>#[macro_use]
+extern crate serde_derive;
+extern crate serde;
+extern crate serde_json;
+
+use std::ops::AddAssign;
+
+// Message definition
+#[derive(Serialize, Deserialize, Clone, Copy, Debug)]
+pub enum Message {
+    None,
+    W,
+    A,
+    S,
+    D,
+    AddPlayer,
+    RemovePlayer,
+}
+
+// Shared state definition
+#[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct SharedState {
+    pub counters: Vec&lt;u32&gt;,
+    pub registry: Vec&lt;Position&gt;,
+}
+
+impl SharedState {
+    pub fn new() -&gt; Self {
+        Self {
+            registry: vec![],
+            counters: vec![],
+        }
+    }
+}
+
+// Position component
+#[derive(Serialize, Deserialize, Debug, Clone, Copy)]
+pub struct Position {
+    x: i32,
+    y: i32,
+}
+
+impl Position {
+    pub fn new() -&gt; Self {
+        Self { x: 0, y: 0 }
+    }
+    pub fn displacement(x: i32, y: i32) -&gt; Self {
+        Self { x, y }
+    }
+}
+
+impl AddAssign for Position {
+    fn add_assign(&amp;mut self, other: Self) {
+        *self = Self {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        };
+    }
+}
+</code></pre>
+<p>Let's update our <code>server.rs</code> by importing these definitions and removing the old ones that were in the file. Inside: <code>server.rs</code>:</p>
+<pre><code>extern crate my_game;
+use example::{Message, Position, SharedState};
+</code></pre>
+<p>The beggining of your <code>server.rs</code> file should now look like the following:</p>
+<pre><code>extern crate blizzard_engine;
+extern crate blizzard_engine_derive;
+extern crate my_game;
+
+use blizzard_engine::ecs::{ComponentRegistry, EntityManager, World};
+use blizzard_engine::game::Game;
+use blizzard_engine_derive::ComponentRegistry;
+use blizzard_server::server::Server;
+
+use std::collections::HashMap;
+use std::sync::mpsc::Receiver;
+use std::sync::{Arc, Mutex};
+
+use example::{Message, Position, SharedState};
+</code></pre>
+<h2 id="creating-our-client"><a class="header" href="#creating-our-client">Creating our client</a></h2>
+<p>Now we are ready to make our client!</p>
+<p>In the beggining of the file write the following:</p>
+<pre><code>extern crate example;
+
+use example::Message;
+use example::SharedState;
+
+use std::io::{self, BufRead, BufReader, Write};
+use std::net::{Shutdown, TcpStream};
+use std::str;
+use std::sync::{Arc, Mutex};
+use std::thread;
+
+struct Client {}
+</code></pre>
+<p>Our <code>Client</code> struct will be used to define related functionality.</p>
+<p>The way the server works is the following:</p>
+<ul>
+<li>Server is started listening to a TCP port</li>
+<li>Server creates threads based on how many games were specified</li>
+<li>Server opens different TCP listeners (on different ports) per game</li>
+</ul>
+<p>When a client connects to the server, the following happens:</p>
+<ol>
+<li>Server looks for an available game (based of player capacity)</li>
+<li>If it finds a game, it returns the TCP port of said game</li>
+<li>In none are found, the port returned is 0</li>
+</ol>
+<p>Based on this we can create a basic client that tries to connect to the server and receive a port number.</p>
+<pre><code>impl Client {
+    fn start() {
+        let mut stream = TcpStream::connect(&quot;0.0.0.0:8888&quot;).expect(&quot;Could not connect to server&quot;);
+        let port: i32;
+
+        let mut input = String::new();
+        let mut buffer: Vec&lt;u8&gt; = Vec::new();
+
+        println!(&quot;Enter your username: &quot;);
+
+        io::stdin()
+            .read_line(&amp;mut input)
+            .expect(&quot;Failed to read from stdin&quot;);
+
+        println!(&quot;Finding an available lobby...&quot;);
+
+        stream
+            .write(input.as_bytes())
+            .expect(&quot;Failed to write to server&quot;);
+
+        let mut reader = BufReader::new(&amp;stream);
+
+        reader
+            .read_until(b'\n', &amp;mut buffer)
+            .expect(&quot;Could not read into buffer&quot;);
+
+        port = str::from_utf8(&amp;buffer)
+            .expect(&quot;Could not write buffer as string&quot;)
+            .replace(&quot;\n&quot;, &quot;&quot;)
+            .parse()
+            .expect(&quot;Could not parse port&quot;);
+
+        if port == 0 {
+            println!(&quot;No game available, please try again later&quot;);
+            return;
+        }
+
+        stream
+            .shutdown(Shutdown::Both)
+            .expect(&quot;Could not disconnect from original server&quot;);
+
+        let tcp = format!(&quot;0.0.0.0:{}&quot;, port);
+
+        Client::run_game(tcp);
+    }
+}
+</code></pre>
+<p>The server needs to receive an input in order to acknowledge that a player wants to connect, hence we are defining a <code>username</code>, but it will actually never be read. If no game is found, a port of 0 will be returned. We can check this to see if the client should continue to try and connect. At the end, <code>Client::run_game(tcp)</code> starts the game connection. Let's see how we can define such game.</p>
+<h2 id="implementing-player-control"><a class="header" href="#implementing-player-control">Implementing player control</a></h2>
+<pre><code>fn run_game(tcp: String) {
+    // Try to connect to game
+    let mut stream = TcpStream::connect(tcp).expect(&quot;Could not connect to server&quot;);
+    let stream_clone = stream.try_clone().unwrap();
+
+    // Tell the server to add a player
+    let data = Message::AddPlayer;
+    let json = serde_json::to_string(&amp;data).unwrap() + &quot;\n&quot;;
+
+    let should_close = Arc::new(Mutex::new(false));
+    let should_close_copy = Arc::clone(&amp;should_close);
+
+    // Write add player message
+    stream
+        .write(json.as_bytes())
+        .expect(&quot;Failed to write to server&quot;);
+    println!(&quot;data written&quot;);
+
+    // User Input thread
+    thread::spawn(move || {
+        let shoud_close = should_close_copy;
+
+        loop {
+            let mut input = String::new();
+
+            io::stdin()
+                .read_line(&amp;mut input)
+                .expect(&quot;Failed to read from stdin&quot;);
+
+            let input = input.trim();
+
+            let mut data = Message::None;
+
+            // Player controls
+            if input == &quot;w&quot; {
+                data = Message::W;
+            } else if input == &quot;a&quot; {
+                data = Message::A;
+            } else if input == &quot;s&quot; {
+                data = Message::S;
+            } else if input == &quot;d&quot; {
+                data = Message::D;
+            } else if input == &quot;close&quot; {
+                data = Message::RemovePlayer;
+                *shoud_close.lock().unwrap() = true;
+            }
+
+            let json = serde_json::to_string(&amp;data).unwrap() + &quot;\n&quot;;
+
+            stream
+                .write(json.as_bytes())
+                .expect(&quot;Failed to write to server&quot;);
+        }
+    });
+
+    // Stream Reader thread
+    thread::spawn(move || {
+        let stream = stream_clone;
+        loop {
+            let mut buffer: Vec&lt;u8&gt; = Vec::new();
+            let mut reader = BufReader::new(&amp;stream);
+            reader
+                .read_until(b'\n', &amp;mut buffer)
+                .expect(&quot;Could not read into buffer&quot;);
+            let json = str::from_utf8(&amp;buffer).unwrap();
+            let state: SharedState = serde_json::from_str(&amp;json).unwrap();
+
+            // Print shared state!
+            println!(&quot;{:?}&quot;, state);
+        }
+    });
+
+    // Keep thread alive, so TCP connection on other threads doesn't reset
+    loop {
+        if *should_close.lock().unwrap() {
+            return;
+        }
+    }
+}
+</code></pre>
+<h2 id="running-everything-togehter"><a class="header" href="#running-everything-togehter">Running everything togehter</a></h2>
+<p>In a terminal, start the server:</p>
+<pre><code>cargo run --bin server
+</code></pre>
+<p>In a new terminal, start a client:</p>
+<pre><code>cargo run --bin client
+</code></pre>
+<p>You should input your username, and the game will connect. You should then see positions logged to the console. Try writing to the server &quot;w&quot;, &quot;a&quot;, &quot;s&quot;, &quot;d&quot;, or &quot;close&quot;. What happens?</p>
+<p>Now without closing the current client, open y a 3rd terminal and connect another player!</p>
+<p>What happens if you connect a 4th player? What happens if you keep going until all games are full? Find out!</p>
+<h2 id="github-repo"><a class="header" href="#github-repo">GitHub repo</a></h2>
+<p>All of this code is the same code from the Example library in the official GitHub repository. You can check it out if anything is not working properly.</p>
+<h2 id="congratulations"><a class="header" href="#congratulations">Congratulations!</a></h2>
+<p>You just made your own very basic multiplayer game! Many other languages and frameworks have TCP connections. For example <code>C#</code> has a TCP class. You could connect your server to a <code>Unity</code> game! The possibilities are endless.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../learn/server.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="../origin.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../learn/server.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="../origin.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>
