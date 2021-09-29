@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Systems - ❄️ Blizzard ❄️</title>
+        <title>Connector - ❄️ Blizzard ❄️</title>
         <!-- Custom HTML head -->
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
@@ -75,7 +75,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../roadmap.html"><strong aria-hidden="true">2.</strong> Roadmap</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li class="chapter-item expanded "><a href="../server.html"><strong aria-hidden="true">4.</strong> Server Architecture</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../server/connection.html"><strong aria-hidden="true">4.1.</strong> Connection Listener</a></li><li class="chapter-item expanded "><a href="../server/pool.html"><strong aria-hidden="true">4.2.</strong> Pool</a></li><li class="chapter-item expanded "><a href="../server/connector.html"><strong aria-hidden="true">4.3.</strong> Connector</a></li><li class="chapter-item expanded "><a href="../server/controller.html"><strong aria-hidden="true">4.4.</strong> Controller</a></li><li class="chapter-item expanded "><a href="../server/application.html"><strong aria-hidden="true">4.5.</strong> Application</a></li></ol></li><li class="chapter-item expanded "><a href="../engine.html"><strong aria-hidden="true">5.</strong> Engine Architecture</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../engine/application.html"><strong aria-hidden="true">5.1.</strong> Application</a></li></ol></li><li class="chapter-item expanded "><a href="../learn.html"><strong aria-hidden="true">6.</strong> Learn</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/world.html"><strong aria-hidden="true">6.1.</strong> World</a></li><li class="chapter-item expanded "><a href="../learn/ec.html"><strong aria-hidden="true">6.2.</strong> Entities and Components</a></li><li class="chapter-item expanded "><a href="../learn/systems.html" class="active"><strong aria-hidden="true">6.3.</strong> Systems</a></li><li class="chapter-item expanded "><a href="../learn/game.html"><strong aria-hidden="true">6.4.</strong> Game</a></li><li class="chapter-item expanded "><a href="../learn/server.html"><strong aria-hidden="true">6.5.</strong> Server</a></li><li class="chapter-item expanded "><a href="../learn/client.html"><strong aria-hidden="true">6.6.</strong> Client</a></li></ol></li><li class="chapter-item expanded "><a href="../origin.html"><strong aria-hidden="true">7.</strong> Origin</a></li><li class="chapter-item expanded "><a href="../dev_process.html"><strong aria-hidden="true">8.</strong> Development Process</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../roadmap.html"><strong aria-hidden="true">2.</strong> Roadmap</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li class="chapter-item expanded "><a href="../server.html"><strong aria-hidden="true">4.</strong> Server Architecture</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../server/connection.html"><strong aria-hidden="true">4.1.</strong> Connection Listener</a></li><li class="chapter-item expanded "><a href="../server/pool.html"><strong aria-hidden="true">4.2.</strong> Pool</a></li><li class="chapter-item expanded "><a href="../server/connector.html" class="active"><strong aria-hidden="true">4.3.</strong> Connector</a></li><li class="chapter-item expanded "><a href="../server/controller.html"><strong aria-hidden="true">4.4.</strong> Controller</a></li><li class="chapter-item expanded "><a href="../server/application.html"><strong aria-hidden="true">4.5.</strong> Application</a></li></ol></li><li class="chapter-item expanded "><a href="../engine.html"><strong aria-hidden="true">5.</strong> Engine Architecture</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../engine/application.html"><strong aria-hidden="true">5.1.</strong> Application</a></li></ol></li><li class="chapter-item expanded "><a href="../learn.html"><strong aria-hidden="true">6.</strong> Learn</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../learn/world.html"><strong aria-hidden="true">6.1.</strong> World</a></li><li class="chapter-item expanded "><a href="../learn/ec.html"><strong aria-hidden="true">6.2.</strong> Entities and Components</a></li><li class="chapter-item expanded "><a href="../learn/systems.html"><strong aria-hidden="true">6.3.</strong> Systems</a></li><li class="chapter-item expanded "><a href="../learn/game.html"><strong aria-hidden="true">6.4.</strong> Game</a></li><li class="chapter-item expanded "><a href="../learn/server.html"><strong aria-hidden="true">6.5.</strong> Server</a></li><li class="chapter-item expanded "><a href="../learn/client.html"><strong aria-hidden="true">6.6.</strong> Client</a></li></ol></li><li class="chapter-item expanded "><a href="../origin.html"><strong aria-hidden="true">7.</strong> Origin</a></li><li class="chapter-item expanded "><a href="../dev_process.html"><strong aria-hidden="true">8.</strong> Development Process</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -134,50 +134,17 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="systems"><a class="header" href="#systems">Systems</a></h1>
-<p><code>Systems</code> are a way of changing <code>Components</code>. Systems are very broad in this implementation, and can be pretty much defined any way you like. For this example, let's add a simple counter <code>Component</code> and a <code>System</code> that increments this counter.</p>
-<pre><code>#[derive(Debug, Clone)]
-struct MyWorld {
-    entity_manager: EntityManager,
-    positions: PositionRegistry,
-    counters: CounterRegistry,
-    players: PlayerRegistry,
-}
-
-...
-
-#[derive(ComponentRegistry, Debug, Clone)]
-struct CounterRegistry {
-    components: HashMap&lt;u32, u32&gt;,
-}
-</code></pre>
-<h2 id="creating-a-system"><a class="header" href="#creating-a-system">Creating a System</a></h2>
-<p>Systems have must process a specific <code>Component</code>, hence their function signature must match the component:</p>
-<pre><code>fn counter_system(counters: &amp;mut HashMap&lt;u32, u32&gt;) {
-    for (_, c) in counters.iter_mut() {
-        *c += 1;
-    }
-}
-</code></pre>
-<p>This system will iterate all the counters inside the CounterRegistry and increment their value by one.</p>
-<p>This system will not run if it is not added to the <code>World</code>...</p>
-<h2 id="adding-systems-to-the-world"><a class="header" href="#adding-systems-to-the-world">Adding Systems to the world</a></h2>
-<p>Addidng a <code>System</code> is very easy, you just call the <code>System</code> inside the <code>World</code>'s <code>run_systems</code> function:</p>
-<pre><code>fn run_systems(&amp;mut self, input: Input) {
-        // Systems to always run
-        counter_system(&amp;mut self.counters.components);
-    }
-</code></pre>
-<p>The next step is to use the <code>Game</code> trait to create your own game, which will be run on the server!</p>
+                        <h1 id="connector"><a class="header" href="#connector">Connector</a></h1>
+<p>The <code>Connector</code> as said before, is like a wrapper around a<code>Controller</code>. It just holds information like port number, max players and current player count. When a <code>Connector</code> is created, it creates it's corresponding <code>Controller</code> in a new thread.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../learn/ec.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../server/pool.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            <a rel="next" href="../learn/game.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../server/controller.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         <div style="clear: both"></div>
@@ -186,10 +153,10 @@ struct CounterRegistry {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../learn/ec.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../server/pool.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
-                    <a rel="next" href="../learn/game.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../server/controller.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

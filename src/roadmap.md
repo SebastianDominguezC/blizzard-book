@@ -6,6 +6,7 @@ There are many features missing in the proyect, here are some of the contemplate
 
 - Cheating prevention
 - Optimization
+- Client prediction
 - UDP server (now it's only TCP)
 - Better communication protocols
 - AI / ML enhancements

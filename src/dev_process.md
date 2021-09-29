@@ -1,15 +1,40 @@
 # Development Process
 
-As we were developing Alien Slayer, I thought about how to turn the game into a multiplayer event (it isn't part of the development plan, I was just curious). After some researching, I decided to make my own TCP multiplayer server using Rust. I called this project Blizzard. It consists of two parts: Blizzard Server and Blizzard Game Engine.
+## Overview
 
-I first started to make the server. It handles client connections, data sending and player input, as well as running the games. After some successful connections and data sending, I realized the server needed some sort of game engine to run the game in a separate thread. I decided to make my own game engine, also with Rust. Hence Blizzard Game Engine came to be, made with ECS architecture. It is only a "data-only" engine, but in the future I hope to give it features like windowing, multi-platform, and rendering.
+When starting this project, I really had no idea of what I was doing. I did a lot of researching, reading, book finding, and video watching. I needed to learn the following:
 
-After I was able to make a basic game, I decided to abstract the entire server and engine for others to use it! I ended up with this amazing library (it actually consists of 4 different crates).
+- Networking
+  - TCP & UDP networking
+  - Data serialization
+- Rust
+  - Threads
+  - Safe types (Arc, Mutex)
+  - Generics
+  - Traits
+  - Type traits
+  - Macros (Procedural and Derivative)
+  - Closures
+  - Iterators
+  - Packages and crates
+  - Pretty much everything from `The-Book` except lifetimes
+- Game engine architectures
+- Game server architectures
 
-Here are some things I had to learn and implement:
+## Recap
 
-- Threads
-- Networking (TCP, UDP, Serialization)
-- ECS architecture
-- Abstraction: Generics, traits, trait objects, macros
-- Safe data: Atomic Reference Counters, Mutual Exclusion, Thread Messages
+I first developed the TCP server. After good data passing between threads and handling connections, I realized I needed a sort of game engine running with my server, so it could be authorative. I ended up also making a small game engine.
+
+## Resources
+
+Here are some resources I strongly recommend (they aren't even half of what I read and watched):
+
+- Rust
+  - ["The Book"](https://doc.rust-lang.org/stable/book/title-page.html)
+- Networking & Serialization
+  - Book: "Network Programming with Rust" - Abhishek Chanda
+- ECS
+  - Paper: "ECS Game Engine Design" - Daniel Hall
+- Game Engine YouTube series
+  - [Hazel](https://www.youtube.com/watch?v=JxIZbV_XjAs&list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT)
+  - [Kohi](https://www.youtube.com/watch?v=dHPuU-DJoBM&list=PLv8Ddw9K0JPg1BEO-RS-0MYs423cvLVtj)

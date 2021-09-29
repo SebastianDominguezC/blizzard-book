@@ -76,7 +76,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="roadmap.html"><strong aria-hidden="true">2.</strong> Roadmap</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li class="chapter-item expanded "><a href="server.html"><strong aria-hidden="true">4.</strong> Server Architecture</a></li><li class="chapter-item expanded "><a href="engine.html"><strong aria-hidden="true">5.</strong> Engine Architecture</a></li><li class="chapter-item expanded "><a href="learn.html"><strong aria-hidden="true">6.</strong> Learn</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="learn/world.html"><strong aria-hidden="true">6.1.</strong> World</a></li><li class="chapter-item expanded "><a href="learn/ec.html"><strong aria-hidden="true">6.2.</strong> Entities and Components</a></li><li class="chapter-item expanded "><a href="learn/systems.html"><strong aria-hidden="true">6.3.</strong> Systems</a></li><li class="chapter-item expanded "><a href="learn/game.html"><strong aria-hidden="true">6.4.</strong> Game</a></li><li class="chapter-item expanded "><a href="learn/server.html"><strong aria-hidden="true">6.5.</strong> Server</a></li><li class="chapter-item expanded "><a href="learn/client.html"><strong aria-hidden="true">6.6.</strong> Client</a></li></ol></li><li class="chapter-item expanded "><a href="origin.html"><strong aria-hidden="true">7.</strong> Origin</a></li><li class="chapter-item expanded "><a href="dev_process.html"><strong aria-hidden="true">8.</strong> Development Process</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="roadmap.html"><strong aria-hidden="true">2.</strong> Roadmap</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li class="chapter-item expanded "><a href="server.html"><strong aria-hidden="true">4.</strong> Server Architecture</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="server/connection.html"><strong aria-hidden="true">4.1.</strong> Connection Listener</a></li><li class="chapter-item expanded "><a href="server/pool.html"><strong aria-hidden="true">4.2.</strong> Pool</a></li><li class="chapter-item expanded "><a href="server/connector.html"><strong aria-hidden="true">4.3.</strong> Connector</a></li><li class="chapter-item expanded "><a href="server/controller.html"><strong aria-hidden="true">4.4.</strong> Controller</a></li><li class="chapter-item expanded "><a href="server/application.html"><strong aria-hidden="true">4.5.</strong> Application</a></li></ol></li><li class="chapter-item expanded "><a href="engine.html"><strong aria-hidden="true">5.</strong> Engine Architecture</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="engine/application.html"><strong aria-hidden="true">5.1.</strong> Application</a></li></ol></li><li class="chapter-item expanded "><a href="learn.html"><strong aria-hidden="true">6.</strong> Learn</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="learn/world.html"><strong aria-hidden="true">6.1.</strong> World</a></li><li class="chapter-item expanded "><a href="learn/ec.html"><strong aria-hidden="true">6.2.</strong> Entities and Components</a></li><li class="chapter-item expanded "><a href="learn/systems.html"><strong aria-hidden="true">6.3.</strong> Systems</a></li><li class="chapter-item expanded "><a href="learn/game.html"><strong aria-hidden="true">6.4.</strong> Game</a></li><li class="chapter-item expanded "><a href="learn/server.html"><strong aria-hidden="true">6.5.</strong> Server</a></li><li class="chapter-item expanded "><a href="learn/client.html"><strong aria-hidden="true">6.6.</strong> Client</a></li></ol></li><li class="chapter-item expanded "><a href="origin.html"><strong aria-hidden="true">7.</strong> Origin</a></li><li class="chapter-item expanded "><a href="dev_process.html"><strong aria-hidden="true">8.</strong> Development Process</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -151,6 +151,7 @@
 <ul>
 <li>Cheating prevention</li>
 <li>Optimization</li>
+<li>Client prediction</li>
 <li>UDP server (now it's only TCP)</li>
 <li>Better communication protocols</li>
 <li>AI / ML enhancements</li>
@@ -177,11 +178,104 @@
 <p>For a quick setup and seeing the game engine and server work together, try copying the example library in the <a href="https://github.com/SebastianDominguezC/blizzard">GitHub repository</a>. It is a library with two binaries, one for the server and one for the client example.</p>
 <p>For now, there is not a quick &quot;default&quot; way to get started, because the Game and World need to be manually configured, so please see the <a href="./learn.html">learn</a> section!</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="server-architecture"><a class="header" href="#server-architecture">Server Architecture</a></h1>
-<p>Authorative client-server.</p>
-<p>This page is not yet finished...</p>
+<p>The architecture decided for any game using this,is for the server to be an authorative. This means that the server receives user data, and decides how to update the game according to the inputs. After the update, it dispatches the updated game data to all players.</p>
+<div align="center">
+  <img src="./assets/client-server.svg" alt="Client-Server Architecture"/>
+</div>
+<p align="center" style="text-align: center">
+    Client-Server Diagram
+</p>
+<br/>
+<p>The server is missing many features like cheating prevention, player prediction, a better game loop, and metrics.</p>
+<p>The server is made up of many parts:</p>
+<ul>
+<li>Connection listener (handles initial connections)</li>
+<li>Pool (Reference to connectors)</li>
+<li>Connector (Bridge between controller and pool)</li>
+<li>Controller (Handles application, player connections, message passing)</li>
+<li>Application (Runs the game, listens for controller messages)</li>
+</ul>
+<div align="center">
+    <img src="./assets/server.svg" alt="Server Architecture"/>
+</div>
+<p align="center" style="text-align: center">
+    Server Architecture Diagram
+</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="connection-listener"><a class="header" href="#connection-listener">Connection Listener</a></h1>
+<p>When creating a server, it opens a port for listening to player connections. The server also creates a <code>Game Pool</code>. When a player connects to the main TCP port of the server, the server tries to find an available game inside the <code>Game Pool</code>. If it finds an available game, it returns the port number where the game is hosted (another TCP connection). If no game is found, it returns 0.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="pool"><a class="header" href="#pool">Pool</a></h1>
+<p>The <code>Game Pool</code> creates as many games as specified in separate threads. It actually creates <code>Connectors</code>. Each <code>Connector</code> is like a wrapper around the <code>Controller</code>. The <code>Game Pool</code> stores each <code>Connector</code>, so it can talk to the <code>Server</code> about empty games, available ports, and so on.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="connector"><a class="header" href="#connector">Connector</a></h1>
+<p>The <code>Connector</code> as said before, is like a wrapper around a<code>Controller</code>. It just holds information like port number, max players and current player count. When a <code>Connector</code> is created, it creates it's corresponding <code>Controller</code> in a new thread.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="controller"><a class="header" href="#controller">Controller</a></h1>
+<p>The <code>Controller</code> is where the most important things happen. When a <code>Controller</code> is created, it opens a new TCP listener to a new port. It then runs the <code>Application</code> on a separate thread, with capabilites to passing <code>Messages</code> to it. When a player conencts to this new port, the <code>Controller</code> will update the <code>Connector</code> information as well as the <code>Application</code> information. The <code>Controller</code> opens two new threads for handling the player's input and also writing data back to the player. The <code>Controller</code> serves as the entire communication controller between <code>Application</code> and <code>Client</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="application"><a class="header" href="#application">Application</a></h1>
+<p>An <code>Application</code> is a <code>Network Application</code> made by the <code>Blizzard Game Engine</code>. It handles the entire <code>Game</code> logic as well as handling the player's inputs. More on this in the next section about the engine's architecture.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="engine-architecture"><a class="header" href="#engine-architecture">Engine Architecture</a></h1>
-<p>ECS Game Engine.</p>
-<p>This page is not yet finished...</p>
+<p>The engine is meant to be used with ECS architecture (Entity Component System). A game engine consists of many parts, which are not yet implemented. As of now, there is only:</p>
+<ul>
+<li>Core
+<ul>
+<li>Logger</li>
+<li>Parsing</li>
+</ul>
+</li>
+<li>Application Layer
+<ul>
+<li>Event loop</li>
+<li>Network Input</li>
+<li>ECS</li>
+</ul>
+</li>
+</ul>
+<p>This is because the MVP was meant for integration with the server. This is the minimum needed for integration.</p>
+<p>The future architecture will consist of more parts:</p>
+<ul>
+<li>Platform layer
+<ul>
+<li>Multi-platform support</li>
+<li>File I/O</li>
+</ul>
+</li>
+<li>Core
+<ul>
+<li>Engine configuration</li>
+<li>Tests</li>
+<li>Math library</li>
+<li>System time</li>
+</ul>
+</li>
+<li>Renderer
+<ul>
+<li>OpenGL abstraction</li>
+<li>GUI</li>
+<li>Camera</li>
+<li>Sceneing</li>
+<li>Many other rendering goodies</li>
+</ul>
+</li>
+<li>Application Layer
+<ul>
+<li>Physics</li>
+<li>State machine</li>
+<li>Time</li>
+<li>Lifecycles</li>
+<li>Shutdown</li>
+</ul>
+</li>
+<li>AI layer</li>
+<li>Tools
+<ul>
+<li>Debugging</li>
+<li>Build system</li>
+</ul>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="application-1"><a class="header" href="#application-1">Application</a></h1>
+<p>The <code>Application</code> which as of now is only a <code>Network Application</code> (although it can be used without it's networking capabilities), is where the most logic occurs.</p>
+<p>It defines how fast to run the game, the order of function calling of the game, the game loop and how to pass messages and handle client input.</p>
+<p>The application takes most importantly a <code>Game</code> argument when creating one. The <code>Game</code> follows ECS architecture. When creating a <code>Game</code>, a <code>World</code> is configured. A <code>World</code> can have <code>Entities</code>, <code>Components</code>, and <code>Systems</code>. The <code>World</code> also accepts inputs from the <code>Game</code>, which really means it accepts inputs from the <code>Application</code>.</p>
+<p>To understand better the ECS architecture implemented, check out the next section!</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="learn"><a class="header" href="#learn">Learn</a></h1>
 <p>This is a tutorial to build the Example project in the GitHub repository. This will teach you the fundamentals to create your own TCP multiplayer data games using Blizzard's Game Engine and Server.</p>
 <h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
@@ -1011,16 +1105,58 @@ struct Client {}
 <div style="break-before: page; page-break-before: always;"></div><h1 id="origin"><a class="header" href="#origin">Origin</a></h1>
 <p>This proyect started as my curiosity to develop a multiplayer game. I ended up deciding to write my own game server using Rust. After some succesfull connections and data passing between threads, I realised that the server needed a game engine in order to implement an authorative client-server achitecture. This gave birth to the Blizzard Game Engine and Server Engine! If you are curious about my learning process and development process, please see the <a href="./dev_process.html">development process section</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="development-process"><a class="header" href="#development-process">Development Process</a></h1>
-<p>As we were developing Alien Slayer, I thought about how to turn the game into a multiplayer event (it isn't part of the development plan, I was just curious). After some researching, I decided to make my own TCP multiplayer server using Rust. I called this project Blizzard. It consists of two parts: Blizzard Server and Blizzard Game Engine.</p>
-<p>I first started to make the server. It handles client connections, data sending and player input, as well as running the games. After some successful connections and data sending, I realized the server needed some sort of game engine to run the game in a separate thread. I decided to make my own game engine, also with Rust. Hence Blizzard Game Engine came to be, made with ECS architecture. It is only a &quot;data-only&quot; engine, but in the future I hope to give it features like windowing, multi-platform, and rendering.</p>
-<p>After I was able to make a basic game, I decided to abstract the entire server and engine for others to use it! I ended up with this amazing library (it actually consists of 4 different crates).</p>
-<p>Here are some things I had to learn and implement:</p>
+<h2 id="overview-1"><a class="header" href="#overview-1">Overview</a></h2>
+<p>When starting this project, I really had no idea of what I was doing. I did a lot of researching, reading, book finding, and video watching. I needed to learn the following:</p>
+<ul>
+<li>Networking
+<ul>
+<li>TCP &amp; UDP networking</li>
+<li>Data serialization</li>
+</ul>
+</li>
+<li>Rust
 <ul>
 <li>Threads</li>
-<li>Networking (TCP, UDP, Serialization)</li>
-<li>ECS architecture</li>
-<li>Abstraction: Generics, traits, trait objects, macros</li>
-<li>Safe data: Atomic Reference Counters, Mutual Exclusion, Thread Messages</li>
+<li>Safe types (Arc, Mutex)</li>
+<li>Generics</li>
+<li>Traits</li>
+<li>Type traits</li>
+<li>Macros (Procedural and Derivative)</li>
+<li>Closures</li>
+<li>Iterators</li>
+<li>Packages and crates</li>
+<li>Pretty much everything from <code>The-Book</code> except lifetimes</li>
+</ul>
+</li>
+<li>Game engine architectures</li>
+<li>Game server architectures</li>
+</ul>
+<h2 id="recap"><a class="header" href="#recap">Recap</a></h2>
+<p>I first developed the TCP server. After good data passing between threads and handling connections, I realized I needed a sort of game engine running with my server, so it could be authorative. I ended up also making a small game engine.</p>
+<h2 id="resources"><a class="header" href="#resources">Resources</a></h2>
+<p>Here are some resources I strongly recommend (they aren't even half of what I read and watched):</p>
+<ul>
+<li>Rust
+<ul>
+<li><a href="https://doc.rust-lang.org/stable/book/title-page.html">&quot;The Book&quot;</a></li>
+</ul>
+</li>
+<li>Networking &amp; Serialization
+<ul>
+<li>Book: &quot;Network Programming with Rust&quot; - Abhishek Chanda</li>
+</ul>
+</li>
+<li>ECS
+<ul>
+<li>Paper: &quot;ECS Game Engine Design&quot; - Daniel Hall</li>
+</ul>
+</li>
+<li>Game Engine YouTube series
+<ul>
+<li><a href="https://www.youtube.com/watch?v=JxIZbV_XjAs&amp;list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT">Hazel</a></li>
+<li><a href="https://www.youtube.com/watch?v=dHPuU-DJoBM&amp;list=PLv8Ddw9K0JPg1BEO-RS-0MYs423cvLVtj">Kohi</a></li>
+</ul>
+</li>
 </ul>
 
                     </main>
